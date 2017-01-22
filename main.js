@@ -40,9 +40,9 @@ app.all('/updateServer',(req,res,err)=>{
 	 var args = "git pull origin master";
 	 var cwd=''
 	if(clientParams.port=='6010'){
-		cwd="/media/preeti/4ff2a78e-a905-4e4c-898a-14ed3713b6cb/data/programming/UpdateVariousServersAndSettingDefaultProxy/serverone/proxy-server";
+		cwd="/media/preeti/4ff2a78e-a905-4e4c-898a-14ed3713b6cb/data/programming/UpdateVariousServersAndSettingDefaultProxy/serverone/proxy-server-new";
 	}else if(clientParams.port=='6020'){
-		cwd="/media/preeti/4ff2a78e-a905-4e4c-898a-14ed3713b6cb/data/programming/UpdateVariousServersAndSettingDefaultProxy/servertwo/proxy-server";
+		cwd="/media/preeti/4ff2a78e-a905-4e4c-898a-14ed3713b6cb/data/programming/UpdateVariousServersAndSettingDefaultProxy/servertwo/proxy-server-new";
 	}
     var out = {};
     var exec = ChildProcess.exec;
