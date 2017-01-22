@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Update Server</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+		 jQuery(function($){
+		 	var updateServer6010=$('#updateServer6010');
+		 	var updateServer6020=$('#updateServer6020');
+		 	var errorDiv=$('#errorDiv');
+
+		 	updateServer6010.submit((event)=>{
+		 		event.preventDefault();
+				var params={'port':'6010'}
+						 $.ajax({
+				                dataType: "json",
+				                type: "POST",
+				                data: params,
+				                async: false,
+				                url: "/updateServer?parameters="+JSON.stringify(params),
+				                success: function (result) {
+				                    console.log("res >> >> "+JSON.stringify(result));
+				                    errorDiv.html(errorDiv.html()+JSON.stringify(result))
+				                },
+				                error: function (err) {
+				                   // alert("err >> >> "+JSON.stringify(err.stack));
+				                    console.log("err >> >> "+JSON.stringify(err.stack));
+				                	errorDiv.html(JSON.stringify(err.stack))
+				                }
+				            });
+		 	})
+
+		 	updateServer6020.submit((event)=>{
+		 		event.preventDefault();
+					var params={'port':'6020'}
+					 $.ajax({
+			                dataType: "json",
+			                type: "POST",
+			                data: params,
+			                async: false,
+			                url: "/updateServer?parameters="+JSON.stringify(params),
+			                success: function (result) {
+			                    console.log("res >> >> "+JSON.stringify(result));
+			                    errorDiv.html(JSON.stringify(result))
+			                },
+			                error: function (err) {
+			                   // alert("err >> >> "+JSON.stringify(err.stack));
+			                    console.log("err >> >> "+JSON.stringify(err.stack));
+			                	errorDiv.html(JSON.stringify(err.stack))
+			                }
+			            });
+		 	})
+
+
+		 })
+		 
+	</script>
+</head>
+<body>
+	<form id='updateServer6010'>
+		<div>
+			<div>localhost://6010</div>
+			<input type="submit"></input>
+		</div>
+	</form>
+	<form id='updateServer6020'>
+		<div>
+			<div>localhost://6020</div>
+			<input type="submit"></input>
+		</div>
+	</form>
+	<div id='errorDiv'>Server Response: </div>
+</body>
+</html>
