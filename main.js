@@ -38,6 +38,7 @@ app.all('/updateServer',(req,res,err)=>{
 	var clientParams=JSON.parse(req.param('parameters'))
 	console.log('port '+clientParams.port)
 	 var cwd=''
+	 
 	if(clientParams.port=='6010'){
 		cwd=__dirname+"/serverone/proxy-server-new/";
 	}else if(clientParams.port=='6020'){
