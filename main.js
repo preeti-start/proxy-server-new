@@ -7,7 +7,7 @@ console.log('serverArguments >> >> '+serverArguments);
 var express=require('express');
 var app=express();
 var ChildProcess = require('child_process');
-var PORT=serverArguments[2] || config.PORT || '80'
+var PORT=serverArguments[2] || config.PORT || '80';
 
 
 app.use(express.static(__dirname+'/public'));
@@ -37,7 +37,7 @@ app.all('/updateServer',(req,res,err)=>{
 	console.log(' inside update call'+req.param('parameters'));
 	var clientParams=JSON.parse(req.param('parameters'))
 	console.log('port '+clientParams.port)
-	 var cwd=''
+	var cwd=''
 	 
 	if(clientParams.port=='6010'){
 		cwd=__dirname+"/serverone/proxy-server-new/";
@@ -46,12 +46,18 @@ app.all('/updateServer',(req,res,err)=>{
 	}
     var out = {};
     var execFile=ChildProcess.execFile;
-    execFile('sh',[cwd+'/script.sh'],(err,stdout,stderr)=>{
+    execFile('sh',[cwd+'/script.sh','ritu','6010'],{cwd:cwd},(err,stdout,stderr)=>{
     	process.stdout.write('output >> >> '+stdout);
     	out['error']=err;
     	out['stdout']=stdout;
     	out['stderr']=stderr;
     	res.send(out);
+        // var exec=ChildProcess.exec;
+        // exec('node server.js ritu 6010',{cwd:cwd},(err,stdout,stderr)=>{
+        //     process.stdout.write('success >> >> '+stdout);
+        //     process.stdout.write('err >> >> '+err);
+        //     process.stdout.write('err 1  >> >> '+stderr);
+        // })
     })
 	 // var args = "git status";
     // var exec = ChildProcess.exec;
