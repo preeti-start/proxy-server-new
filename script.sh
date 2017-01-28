@@ -1,5 +1,5 @@
 
 
-git status
+git reset --hard origin/master
 git pull origin master
-node server.js preeti 3333
+

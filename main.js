@@ -70,3 +70,18 @@ var serverData={
 			{"url":'127.0.0.1:6020',isActive:false,name:"ritu-local"}
 		]
 }
+
+
+// var childProcess=require('child_process');
+// var exec=childProcess.exec;
+// exec('node server.js preeti 2020',{cwd:'./serverone/proxy-server-new'},(err,stdout,stderr)=>{
+// 	process.stdout.write('success >> >> '+stdout);
+// 	process.stdout.write('err >> >> '+err);
+// 	process.stdout.write('err 1  >> >> '+stderr);
+// })
+// process.stdout.write('m done with one');
+// exec('node server.js ritu 2022',{cwd:'./servertwo/proxy-server-new'},(err,stdout,stderr)=>{
+//     process.stdout.write('success >> >> '+stdout);
+//     process.stdout.write('err >> >> '+err);
+//     process.stdout.write('err 1  >> >> '+stderr);
+// })
