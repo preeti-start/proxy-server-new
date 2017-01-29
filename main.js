@@ -43,16 +43,19 @@ app.all('/updateServer',(req,res,err)=>{
 
 	if(clientParams.port=='6010'){
 		cwd=__dirname+"/serverone/proxy-server-new/";
-		serverName='ritu';
+		serverName='server_name=ritu';
 		serverPort='6010';
 	}else if(clientParams.port=='6020'){
 		cwd=__dirname+"/servertwo/proxy-server-new/";
-        serverName='preeti';
+        serverName='server_name=preeti';
         serverPort='6020';
 	}
     var out = {};
     var execFile=ChildProcess.execFile;
     var exec=ChildProcess.exec;
+    console.log('servername '+serverName)
+    console.log('serverPort '+serverPort)
+    // throw new Error('testing');
     exec("ps aux | grep "+serverName+" | awk '{print $2}' | xargs kill",{cwd:cwd},(err,stdout,stderr)=>{
         process.stdout.write('success >> >> '+stdout);
         process.stdout.write('err >> >> '+err);
