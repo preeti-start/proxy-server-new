@@ -88,8 +88,8 @@ app.all('/updateServer',(req,res,err)=>{
 
 var serverData={
 		urlMappings:[
-			{"url":'127.0.0.1:6010',isActive:true,name:"preeti-local"},
-			{"url":'127.0.0.1:6020',isActive:false,name:"ritu-local"}
+			{"url":'http://127.0.0.1:6010',isActive:true,name:"preeti-local"},
+			{"url":'http://127.0.0.1:6020',isActive:false,name:"ritu-local"}
 		]
 }
 
