@@ -30,36 +30,43 @@ app.all('/rest',(req,res,err)=>{
 		}
 	}
 	proxy.web(req,res,{target:target})
-})
+});
 
 app.all('/updateServer',(req,res,err)=>{
 	console.log(' inside update call');
 	console.log(' inside update call'+req.param('parameters'));
-	var clientParams=JSON.parse(req.param('parameters'))
-	console.log('port '+clientParams.port)
-	var cwd=''
-	 
+	var clientParams=JSON.parse(req.param('parameters'));
+	console.log('port '+clientParams.port);
+	var cwd='';
+	var serverName='';
+	var serverPort='';
+
 	if(clientParams.port=='6010'){
 		cwd=__dirname+"/serverone/proxy-server-new/";
+		serverName='ritu';
+		serverPort='6010';
 	}else if(clientParams.port=='6020'){
 		cwd=__dirname+"/servertwo/proxy-server-new/";
+        serverName='preeti';
+        serverPort='6020';
 	}
     var out = {};
     var execFile=ChildProcess.execFile;
-    execFile('sh',[cwd+'/script.sh','ritu','6010'],{cwd:cwd},(err,stdout,stderr)=>{
+    execFile('sh',[cwd+'/script.sh',serverName,serverPort],{cwd:cwd},(err,stdout,stderr)=>{
     	process.stdout.write('output >> >> '+stdout);
     	out['error']=err;
     	out['stdout']=stdout;
     	out['stderr']=stderr;
-    	res.send(out);
         // var exec=ChildProcess.exec;
         // exec('node server.js ritu 6010',{cwd:cwd},(err,stdout,stderr)=>{
         //     process.stdout.write('success >> >> '+stdout);
         //     process.stdout.write('err >> >> '+err);
         //     process.stdout.write('err 1  >> >> '+stderr);
         // })
-    })
-	 // var args = "git status";
+    });
+    res.send({"message : ":serverName+ "Server is running on port "+serverPort});
+
+    // var args = "git status";
     // var exec = ChildProcess.exec;
     // exec(args, {cwd: cwd}, function (error, stdout, stderr) {
     //     out.error = error;
@@ -68,7 +75,7 @@ app.all('/updateServer',(req,res,err)=>{
     //     console.log("this is my output >> >> "+JSON.stringify(out));
     //     res.send(out);
     // });
-})
+});
 
 var serverData={
 		urlMappings:[
