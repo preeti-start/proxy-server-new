@@ -52,21 +52,27 @@ app.all('/updateServer',(req,res,err)=>{
 	}
     var out = {};
     var execFile=ChildProcess.execFile;
-    execFile('sh',[cwd+'/script.sh',serverName,serverPort],{cwd:cwd},(err,stdout,stderr)=>{
-    	process.stdout.write('output >> >> '+stdout);
-    	out['error']=err;
-    	out['stdout']=stdout;
-    	out['stderr']=stderr;
-        // var exec=ChildProcess.exec;
-        // exec('node server.js ritu 6010',{cwd:cwd},(err,stdout,stderr)=>{
-        //     process.stdout.write('success >> >> '+stdout);
-        //     process.stdout.write('err >> >> '+err);
-        //     process.stdout.write('err 1  >> >> '+stderr);
-        // })
-    });
-    res.send({"message : ":serverName+ "Server is running on port "+serverPort});
+    var exec=ChildProcess.exec;
+    exec("ps aux | grep "+serverName+" | awk '{print $2}' | xargs kill",{cwd:cwd},(err,stdout,stderr)=>{
+        process.stdout.write('success >> >> '+stdout);
+        process.stdout.write('err >> >> '+err);
+        process.stdout.write('err 1  >> >> '+stderr);
+        execFile('sh',[cwd+'/script.sh',serverName,serverPort],{cwd:cwd},(err,stdout,stderr)=>{
+            process.stdout.write('output >> >> '+stdout);
+            out['error']=err;
+            out['stdout']=stdout;
+            out['stderr']=stderr;
+            console.log('res >> >> '+JSON.stringify(out));
+            res.send({message:serverName+" server is running on port "+serverPort});
+            exec('node server.js '+serverName+' '+serverPort,{cwd:cwd},(err,stdout,stderr)=>{
+                process.stdout.write('success >> >> '+stdout);
+                process.stdout.write('err >> >> '+err);
+                process.stdout.write('err 1  >> >> '+stderr);
+            })
+        });
+    })
 
-    // var args = "git status";
+	 // var args = "git status";
     // var exec = ChildProcess.exec;
     // exec(args, {cwd: cwd}, function (error, stdout, stderr) {
     //     out.error = error;
